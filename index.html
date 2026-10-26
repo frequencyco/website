@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CamFX by Frequency &amp; Co.</title>
+<meta name="description" content="CamFX turns your webcam into a live visual that moves with your music. A Mac app plus AU and VST3 plugins, verified in FL Studio and Logic Pro.">
+<meta name="theme-color" content="#0b0c10">
+<style>
+:root{
+  --bg:#fbfaf7;--bg2:#f2efe8;--text:#16140f;--muted:#6b665b;--line:rgba(22,20,15,.12);--card:#ffffff;
+  --accent:#f2a516;--accent2:#ff5f3d;--ink-on-accent:#1a1204;
+  --stage:#0b0c10;--stage-text:#f4f1ea;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0b0c10;--bg2:#12141a;--text:#f4f1ea;--muted:#9b9fa8;--line:rgba(244,241,234,.14);--card:#161920}
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;backdrop-filter:saturate(180%) blur(18px);-webkit-backdrop-filter:saturate(180%) blur(18px);background:color-mix(in srgb,var(--bg) 72%,transparent);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:52px;gap:14px}
+.logo{white-space:nowrap;font-weight:650;letter-spacing:-.2px;text-decoration:none;font-size:17px}
+.logo span{color:var(--muted);font-weight:450}
+.links{display:flex;align-items:center;gap:22px;font-size:14px}
+.links a{text-decoration:none;color:var(--muted);transition:color .2s}
+.links a:hover{color:var(--text)}
+.pill{white-space:nowrap;display:inline-block;background:var(--text);color:var(--bg)!important;padding:6px 14px;border-radius:999px;font-weight:550}
+@media(max-width:640px){.links a:not(.pill){display:none}.logo span{display:none}.ghost{display:block;margin:16px 0 0}}
+
+/* type */
+h1{font-size:clamp(40px,8vw,84px);line-height:1.02;letter-spacing:-.035em;margin:0;font-weight:700}
+h2{font-size:clamp(30px,5vw,54px);line-height:1.06;letter-spacing:-.03em;margin:0 0 14px;font-weight:700}
+.eyebrow{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.02em;margin:0 0 12px}
+.lead{font-size:clamp(18px,2.2vw,23px);line-height:1.45;color:var(--muted);max-width:640px;margin:18px 0 0}
+.grad{background:linear-gradient(95deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-block;background:linear-gradient(95deg,var(--accent),var(--accent2));color:var(--ink-on-accent);padding:13px 26px;border-radius:999px;font-weight:650;text-decoration:none;font-size:16px;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 28px -10px var(--accent2)}
+.btn:hover{transform:translateY(-1px) scale(1.02)}
+.ghost{margin-left:18px;color:var(--accent);text-decoration:none;font-weight:550}
+.ghost:hover{text-decoration:underline}
+.small{font-size:14px;color:var(--muted)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+/* hero */
+.hero{position:relative;padding:76px 0 30px;text-align:center;background:radial-gradient(900px 420px at 50% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%)}
+.hero .lead{margin-left:auto;margin-right:auto}
+.cta{margin-top:30px}
+.stagewrap{margin:54px auto 0;max-width:900px}
+.stage{position:relative;background:var(--stage);color:var(--stage-text);border-radius:26px;padding:12px;box-shadow:0 40px 90px -30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.07) inset;text-align:left}
+.dots{display:flex;gap:7px;padding:6px 8px 12px}
+.dots i{width:11px;height:11px;border-radius:50%;background:#2a2d36}
+.dots i:nth-child(1){background:#ff5f57}.dots i:nth-child(2){background:#febc2e}.dots i:nth-child(3){background:#28c840}
+.pic{position:relative;aspect-ratio:16/8.4;border-radius:18px;overflow:hidden;background:#07080b;--p:0}
+.pic .art{position:absolute;inset:-12%;filter:hue-rotate(calc(var(--p)*55deg)) saturate(calc(1.1 + var(--p)*.9)) contrast(1.05);transform:scale(calc(1 + var(--p)*.06));transition:filter .05s linear}
+.orb{position:absolute;border-radius:50%;filter:blur(34px)}
+.o1{width:46%;height:70%;left:8%;top:18%;background:radial-gradient(circle at 40% 40%,#ffb347,#ff5f3d 55%,transparent 72%)}
+.o2{width:42%;height:62%;right:6%;top:6%;background:radial-gradient(circle at 50% 50%,#5ec4b9,#2a6df4 60%,transparent 74%)}
+.o3{width:34%;height:46%;left:38%;bottom:-8%;background:radial-gradient(circle,#c04bff,transparent 70%)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.75) 100%);opacity:calc(.35 + var(--p)*.5)}
+.tag{position:absolute;left:14px;top:12px;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:5px 12px;border-radius:999px;font-size:12px;color:#f4f1ea}
+.mark{position:absolute;right:6%;bottom:12px;font-weight:700;font-size:15px;color:rgba(255,255,255,.7);letter-spacing:.2px}
+.bar{display:flex;align-items:flex-end;gap:5px;height:74px;padding:14px 12px 4px}
+.bar i{flex:1;background:#2a2d36;border-radius:3px;height:12%;transition:background .2s}
+.bar i.lit{background:var(--accent)}
+.chips{display:flex;gap:8px;padding:10px 12px 8px;flex-wrap:wrap;align-items:center}
+.chips span{font-size:12.5px;color:#9b9fa8;margin-right:4px}
+.chips button{font:inherit;font-size:13px;border:1px solid rgba(255,255,255,.16);background:transparent;color:#d9d6cf;padding:6px 14px;border-radius:999px;cursor:pointer;transition:all .2s}
+.chips button:hover{border-color:var(--accent)}
+.beats{padding-top:0}.beats button{display:inline-flex;align-items:center;gap:7px}.beats .credit{margin-left:auto;font-size:12px;color:#7d8189}.pl{display:inline-block;width:0;height:0;border-left:8px solid currentColor;border-top:5px solid transparent;border-bottom:5px solid transparent}.beats button[aria-pressed=true] .pl{width:9px;height:10px;border:0;border-left:3px solid currentColor;border-right:3px solid currentColor}
+.chips button[aria-pressed=true]{background:var(--accent);color:var(--ink-on-accent);border-color:var(--accent);font-weight:600}
+
+/* sections */
+section{padding:110px 0}
+section.alt{background:var(--bg2)}
+.split{display:grid;grid-template-columns:1fr 1.15fr;gap:54px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:34px}section{padding:76px 0}}
+.points{list-style:none;margin:26px 0 0;padding:0;display:grid;gap:14px}
+.points li{padding-left:30px;position:relative;color:var(--muted)}
+.points li b{color:var(--text);font-weight:600}
+.points li::before{content:"";position:absolute;left:0;top:.45em;width:16px;height:16px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+
+/* camera demo */
+.desk{position:relative;aspect-ratio:16/10.5;border-radius:20px;overflow:hidden;background:linear-gradient(160deg,#1b1e27,#0c0d12);box-shadow:0 40px 80px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07) inset;user-select:none;-webkit-user-select:none;touch-action:none}
+.win{position:absolute;border-radius:10px;background:#242834;box-shadow:0 0 0 1px rgba(255,255,255,.05) inset}
+.win.a{left:5%;top:9%;width:62%;height:62%}
+.win.b{left:42%;top:42%;width:50%;height:46%;background:#2c3140}
+.win i{position:absolute;left:12px;top:12px;width:8px;height:8px;border-radius:50%;background:#ff5f57;box-shadow:14px 0 #febc2e,28px 0 #28c840}
+.win em{position:absolute;left:14px;right:14px;top:36px;height:7px;border-radius:4px;background:rgba(255,255,255,.08);box-shadow:0 18px rgba(255,255,255,.06),0 36px rgba(255,255,255,.06),0 54px rgba(255,255,255,.04)}
+.cam{position:absolute;border-radius:12px;overflow:hidden;cursor:grab;box-shadow:0 14px 40px -8px rgba(0,0,0,.7),0 0 0 1.5px rgba(255,255,255,.35);background:linear-gradient(140deg,#ff9a3d,#ff4d6d 50%,#6a4bff)}
+.cam:active{cursor:grabbing}
+.cam .rec{position:absolute;left:8px;top:8px;width:9px;height:9px;border-radius:50%;background:#ff3b30;animation:blink 1.6s infinite}
+.cam .cm{position:absolute;right:11%;bottom:7px;font-weight:700;font-size:11px;color:rgba(255,255,255,.75)}
+.cam .face{position:absolute;left:50%;top:58%;width:34%;aspect-ratio:1;border-radius:50%;background:rgba(10,8,20,.35);transform:translate(-50%,-50%);box-shadow:0 26px 0 6px rgba(10,8,20,.3)}
+.grip{position:absolute;right:0;bottom:0;width:30px;height:30px;cursor:nwse-resize;touch-action:none}
+.grip svg{position:absolute;right:0;bottom:0;width:100%;height:100%}
+@keyframes blink{50%{opacity:.25}}
+.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);font-size:12.5px;color:#d9d6cf;background:rgba(0,0,0,.5);padding:5px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;transition:opacity .4s}
+
+/* aspect demo */
+.screenbox{position:relative;height:340px;border-radius:20px;background:linear-gradient(160deg,#1b1e27,#0c0d12);box-shadow:0 40px 80px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07) inset;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.frame{position:absolute;border:3px solid var(--accent);border-radius:16px;box-shadow:0 0 0 999px rgba(0,0,0,.45);transition:width .5s cubic-bezier(.3,.8,.2,1),height .5s cubic-bezier(.3,.8,.2,1);display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.frame b{position:absolute;top:10px;left:12px;font-size:13px;color:var(--accent)}
+.frame .mini{position:absolute;right:8px;bottom:8px;width:34%;aspect-ratio:16/9;border-radius:8px;background:linear-gradient(140deg,#ff9a3d,#ff4d6d 50%,#6a4bff);box-shadow:0 0 0 1.5px rgba(255,255,255,.4)}
+.shapes{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.shapes button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:8px 16px;border-radius:999px;cursor:pointer;transition:all .2s}
+.shapes button:hover{border-color:var(--accent)}
+.shapes button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--ink-on-accent);font-weight:650}
+
+/* trimmer demo */
+.trim{background:#0f1116;border-radius:20px;padding:22px 22px 18px;color:#f4f1ea;box-shadow:0 40px 80px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07) inset}
+.tl{position:relative;height:96px;margin:30px 14px 14px}
+.wf{position:absolute;inset:0;display:flex;align-items:center;gap:2px}
+.wf i{flex:1;border-radius:2px;background:#3a3f4b;height:6%}
+.cut{position:absolute;top:0;bottom:0;background:rgba(15,17,22,.7);transition:width 1.4s cubic-bezier(.3,.8,.2,1)}
+.cut.l{left:0;width:0}.cut.r{right:0;width:0}
+.edge{position:absolute;top:-4px;bottom:-4px;width:12px;background:var(--accent);border-radius:6px;transition:left 1.4s cubic-bezier(.3,.8,.2,1)}
+.edge::after{content:"";position:absolute;left:4px;top:30%;bottom:30%;width:4px;border-left:1.5px solid #3a2a05;border-right:1.5px solid #3a2a05}
+.keep{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:#c9c6bf;flex-wrap:wrap;gap:8px}
+.keep b{color:#fff}
+.sv{display:flex;gap:10px;margin-top:14px;justify-content:flex-end}
+.sv span{font-size:13.5px;padding:8px 16px;border-radius:10px;background:#242834}
+.sv span.p{background:var(--accent);color:var(--ink-on-accent);font-weight:650}
+
+/* hosts */
+.hosts{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 0}
+.hosts span{background:var(--card);border:1px solid var(--line);padding:9px 18px;border-radius:999px;font-size:15.5px;font-weight:550;transition:transform .2s,border-color .2s}
+.hosts span:hover{transform:translateY(-2px);border-color:var(--accent)}
+.fmt{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:36px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px}
+.card h3{margin:0 0 8px;font-size:19px;letter-spacing:-.01em}
+.card p{margin:0;color:var(--muted);font-size:16px}
+
+/* feature tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:44px}
+@media(max-width:980px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.tiles{grid-template-columns:1fr}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .3s}
+.tile:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 60%,var(--line))}
+.tile h3{margin:0 0 8px;font-size:20px;letter-spacing:-.015em}
+.tile p{margin:0;color:var(--muted);font-size:16px}
+.tile .ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-bottom:16px}
+
+footer{padding:50px 0 70px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer p{margin:0 0 6px}
+.center{text-align:center}
+.center .lead{margin-left:auto;margin-right:auto}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .cam .rec{animation:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <a class="logo" href="#top">CamFX <span>by Frequency &amp; Co.</span></a>
+  <div class="links"><a href="#hears">Reacts</a><a href="#camera">Camera</a><a href="#record">Record</a><a href="#hosts">Works with</a><a href="#contact">Contact</a><a class="pill" href="mailto:jovaval@frequencycoapp.com?subject=CamFX%20early%20access">Early access</a></div>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <p class="eyebrow rv">CamFX for Mac</p>
+  <h1 class="rv d1">A camera that<br><span class="grad">moves with your music.</span></h1>
+  <p class="lead rv d2">CamFX turns your webcam into a live visual that reacts to the sound you're making. Put the plugin on a channel in your session, choose what it listens to, and record the result.</p>
+  <div class="cta rv d3"><a class="btn" href="mailto:jovaval@frequencycoapp.com?subject=CamFX%20early%20access">Ask for early access</a><a class="ghost" href="#hears">See how it reacts &rsaquo;</a></div>
+  <p class="small rv d3" style="margin-top:14px">macOS 11 or later. Apple silicon and Intel.</p>
+
+  <div class="stagewrap rv">
+    <div class="stage" id="stage">
+      <div class="dots"><i></i><i></i><i></i></div>
+      <div class="pic" id="pic">
+        <div class="art"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+        <div class="vig"></div>
+        <div class="tag">Live preview</div>
+        <div class="mark">camfx</div>
+      </div>
+      <div class="bar" id="bars" aria-hidden="true"></div>
+      <div class="chips" id="chips" role="group" aria-label="Choose what the picture listens to">
+        <span>It listens to</span>
+        <button type="button" data-k="kick" aria-pressed="true">Kick</button>
+        <button type="button" data-k="snare" aria-pressed="false">Snare</button>
+        <button type="button" data-k="hats" aria-pressed="false">Hi-hats</button>
+        <button type="button" data-k="all" aria-pressed="false">Everything</button>
+      </div>
+      <div class="chips beats" id="beats" role="group" aria-label="Play a beat">
+        <span>Play a beat</span>
+        <button type="button" data-src="audio/beat1.m4a" data-n="Beat 1" aria-pressed="false"><i class="pl"></i>Beat 1</button>
+        <button type="button" data-src="audio/beat2.m4a" data-n="Beat 2" aria-pressed="false"><i class="pl"></i>Beat 2</button>
+        <button type="button" data-src="audio/beat3.m4a" data-n="Beat 3" aria-pressed="false"><i class="pl"></i>Beat 3</button>
+        <button type="button" data-src="audio/beat4.m4a" data-n="Beat 4" aria-pressed="false"><i class="pl"></i>Beat 4</button>
+        <span class="credit" id="credit">Beats by @jovaval</span>
+      </div>
+    </div>
+  </div>
+</div></header>
+
+<section id="hears"><div class="wrap center">
+  <p class="eyebrow rv">Reacts to what you choose</p>
+  <h2 class="rv d1">Hear the kick.<br>Ignore the rest.</h2>
+  <p class="lead rv d2">The plugin listens to the channel you put it on: the master bus for the whole mix, or a single track for just that sound. Pick the part of the spectrum that matters and the picture answers it, hit for hit. Try the buttons in the preview above: the same beat, a different reaction.</p>
+  <div class="tiles">
+    <div class="tile rv"><div class="ic"></div><h3>Layered looks</h3><p>Stack up to five filters, set how strongly each one reacts, and save the combination as a preset.</p></div>
+    <div class="tile rv d1"><div class="ic"></div><h3>Made for the mix</h3><p>The plugin only listens, to whichever channel you put it on. It never changes a sample, so it can sit on your master bus and stay out of the way.</p></div>
+    <div class="tile rv d2"><div class="ic"></div><h3>Your iPhone as the camera</h3><p>CamFX lists Continuity Camera, so your iPhone's camera is one pick away from the camera menu. Use it on macOS Sonoma or later with an iPhone that supports Continuity Camera.</p></div>
+    <div class="tile rv d3"><div class="ic"></div><h3>Smooth and fast</h3><p>A direct camera pipeline that keeps up with the beat instead of lagging behind it.</p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="camera"><div class="wrap split">
+  <div>
+    <p class="eyebrow rv">The camera window</p>
+    <h2 class="rv d1">Put your face<br>anywhere.</h2>
+    <p class="lead rv d2">When you record your screen, the camera sits in its own window on top. Move it wherever it works for the shot and resize it to any size. What you see is what lands in the clip.</p>
+    <ul class="points rv d3">
+      <li><b>Movable.</b> Drag it across the screen, to any corner or any spot in between.</li>
+      <li><b>Resizable.</b> Pull the corner grip to make it small and quiet or big and loud. There's no cap.</li>
+      <li><b>Remembered.</b> It opens where you left it, next time.</li>
+    </ul>
+  </div>
+  <div class="rv d1">
+    <div class="desk" id="desk">
+      <div class="win a"><i></i><em></em></div>
+      <div class="win b"><i></i><em></em></div>
+      <div class="cam" id="cam" style="left:56%;top:12%;width:34%;height:28%">
+        <div class="face"></div><div class="rec"></div><div class="cm">camfx</div>
+        <div class="grip" id="grip"><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M30 0V30H0Z" fill="rgba(255,255,255,.65)"/><path d="M27 12 12 27M27 19 19 27M27 5 5 27" stroke="rgba(0,0,0,.4)" stroke-width="2"/></svg></div>
+      </div>
+      <div class="hint" id="hint">Drag it. Pull the corner.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="record"><div class="wrap split">
+  <div class="rv d1">
+    <div class="screenbox" id="sbox">
+      <div class="frame" id="frame"><b id="flab">9:16</b><div class="mini"></div></div>
+    </div>
+  </div>
+  <div>
+    <p class="eyebrow rv">Record anything</p>
+    <h2 class="rv d1">Your screen, framed for wherever it's going.</h2>
+    <p class="lead rv d2">Record the camera, the whole screen, a single window, or an area in the shape you need. One click to start. In the app, screen takes can include your Mac's system sound. Recorded from the plugin, a take carries the sound of the channel the plugin is on.</p>
+    <div class="shapes rv d3" id="shapes" role="group" aria-label="Recording shape"></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap split">
+  <div>
+    <p class="eyebrow rv">After the take</p>
+    <h2 class="rv d1">Trimmed before you ask.</h2>
+    <p class="lead rv d2">The handles land where the sound starts and stops. You'll see the waveform, play it back right in the window, and move either end. Saving a trim re-encodes only the part you keep, so the cut is exact.</p>
+  </div>
+  <div class="rv d1">
+    <div class="trim" id="trim">
+      <div class="tl" id="tl"><div class="wf" id="wf"></div><div class="cut l" id="cl"></div><div class="cut r" id="cr"></div><div class="edge" id="el" style="left:-12px"></div><div class="edge" id="er" style="left:100%"></div></div>
+      <div class="keep"><span id="kt">Keeping all <b>31.0 s</b></span><span>quiet ends cut automatically</span></div>
+      <div class="sv"><span>Save as is</span><span class="p">Save trimmed</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="hosts"><div class="wrap">
+  <p class="eyebrow rv">Works with</p>
+  <h2 class="rv d1">Any Mac host that loads AU or VST3.</h2>
+  <p class="lead rv d2">CamFX installs as an Audio Unit and a VST3 plugin, together with the CamFX app, in one installer. How the picture shows up depends on whether your music software lets a plugin use the camera.</p>
+  <div class="fmt">
+    <div class="card rv"><h3>FL Studio</h3><p>The whole picture and its controls live in the plugin window. Resize it and it opens at that size next time.</p></div>
+    <div class="card rv d1"><h3>Logic Pro</h3><p>Logic doesn't let a plugin open a camera, so the plugin measures the channel and the CamFX app shows the picture next to your session.</p></div>
+    <div class="card rv d2"><h3>Everything else</h3><p>If your host lets plugins use the camera, the picture appears in the plugin. If not, you use it like Logic, with the app beside it.</p></div>
+  </div>
+  <p class="small rv" style="margin-top:26px">Verified in FL Studio and Logic Pro. Other hosts that load these formats, such as Ableton Live, Reaper, Studio One, Cubase and Bitwig Studio, should work the same way, but we haven't tested them ourselves yet. Pro Tools uses AAX, which isn't supported yet.</p>
+</div></section>
+
+<section class="alt" id="privacy"><div class="wrap center">
+  <p class="eyebrow rv">Privacy</p>
+  <h2 class="rv d1">It stays on your Mac.</h2>
+  <p class="lead rv d2">Your camera picture, your screen and your audio are processed on your computer and aren't sent to us or anyone else. We don't collect usage data. Recordings are saved only where you choose, and a take you cancel is deleted.</p>
+  <p class="small rv d3" style="margin-top:14px">Camera and screen recording use the permissions macOS asks you for, and you can turn them off any time in System Settings.</p>
+</div></section>
+
+<section id="contact"><div class="wrap center">
+  <p class="eyebrow rv">Early access</p>
+  <h2 class="rv d1">Want to try it?</h2>
+  <p class="lead rv d2">Tell us your music software and we'll send you CamFX. Questions and bug reports are welcome too.</p>
+  <div class="cta rv d3"><a class="btn" href="mailto:jovaval@frequencycoapp.com?subject=CamFX%20early%20access">jovaval@frequencycoapp.com</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <p>&copy; 2026 Frequency &amp; Co. LLC. All rights reserved.</p>
+  <p>CamFX is a product of Frequency &amp; Co. LLC. Mac, macOS, FL Studio, Logic Pro and other names are trademarks of their respective owners.</p>
+</div></footer>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* reveal on scroll */
+  var rv=document.querySelectorAll('.rv');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.15});
+    rv.forEach(function(el){io.observe(el)});
+  } else rv.forEach(function(el){el.classList.add('in')});
+
+  /* the hero: a made-up beat until someone plays one of the real ones */
+  var N=24,bars=document.getElementById('bars'),pic=document.getElementById('pic'),bi=[];
+  for(var i=0;i<N;i++){var b=document.createElement('i');bars.appendChild(b);bi.push(b)}
+  var ranges={kick:[0,5],snare:[9,14],hats:[17,23],all:[0,23]},sel='kick';
+  function setSel(k){sel=k;document.querySelectorAll('#chips button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.k===k)});lit()}
+  function lit(){var r=ranges[sel];bi.forEach(function(b,i){b.classList.toggle('lit',i>=r[0]&&i<=r[1])})}
+  document.querySelectorAll('#chips button').forEach(function(x){x.addEventListener('click',function(){setSel(x.dataset.k)})});
+  lit();
+  function env(t,beats,k){var m=Infinity;beats.forEach(function(b){var d=((t-b)%4+4)%4;if(d<m)m=d});return Math.exp(-m*k)}
+
+  /* real audio: split it into the same 24 bands and find the hits like the plugin does */
+  var audio=null,ctx=null,an=null,spec=null,live=false,playBtn=null,avg=new Float32Array(N),bpk=new Float32Array(N),gpk=0,rmax=0,smooth=0,hits=new Float32Array(N);
+  var edges=[];for(var e=0;e<=N;e++)edges.push(20*Math.pow(400,e/N));
+  function ensureAudio(){
+    if(audio)return true;
+    try{
+      audio=new Audio();audio.preload='auto';audio.crossOrigin='anonymous';
+      var AC=window.AudioContext||window.webkitAudioContext;ctx=new AC();
+      var srcNode=ctx.createMediaElementSource(audio);an=ctx.createAnalyser();an.fftSize=8192;an.smoothingTimeConstant=0;
+      srcNode.connect(an);an.connect(ctx.destination);spec=new Float32Array(an.frequencyBinCount);
+      audio.addEventListener('ended',stopBeat);
+      return true;
+    }catch(err){audio=audio||new Audio();audio.addEventListener('ended',stopBeat);an=null;return true}
+  }
+  function stopBeat(){
+    live=false;if(audio)audio.pause();
+    document.querySelectorAll('#beats button').forEach(function(x){x.setAttribute('aria-pressed','false')});playBtn=null;
+    for(var i=0;i<N;i++){avg[i]=0;bpk[i]=0}gpk=0;rmax=0;
+  }
+  document.querySelectorAll('#beats button').forEach(function(x){x.addEventListener('click',function(){
+    if(playBtn===x){stopBeat();return}
+    ensureAudio();stopBeat();
+    if(ctx&&ctx.state==='suspended')ctx.resume();
+    audio.src=x.dataset.src;audio.currentTime=0;
+    var pr=audio.play();if(pr&&pr.catch)pr.catch(function(){stopBeat()});
+    playBtn=x;live=true;x.setAttribute('aria-pressed','true');
+  })});
+  function analyse(dt){
+    an.getFloatFrequencyData(spec);
+    var binHz=ctx.sampleRate/an.fftSize,k=Math.min(1,dt/.3),gmax=0,raw=new Float32Array(N);
+    for(var i=0;i<N;i++){
+      var lo=Math.max(1,Math.floor(edges[i]/binHz)),hi=Math.max(lo,Math.floor(edges[i+1]/binHz)),sum=0,c=0;
+      for(var j=lo;j<=hi;j++){var m=spec[j];sum+=m>-140?Math.pow(10,m/20):0;c++}
+      var envv=sum/c;raw[i]=envv;
+      var h=Math.max(0,envv-1.35*avg[i]);
+      avg[i]+=(envv-avg[i])*k;
+      hits[i]=h;bpk[i]=Math.max(h,bpk[i]*Math.exp(-dt/1.5));gmax=Math.max(gmax,h);
+    }
+    gpk=Math.max(gmax,gpk*Math.exp(-dt/2));
+    var rm=0;for(var q=0;q<N;q++)rm=Math.max(rm,raw[q]);rmax=Math.max(rm,rmax*Math.exp(-dt/3));
+    var r=ranges[sel],pulse=0;
+    for(var i2=0;i2<N;i2++){
+      var den=Math.max(bpk[i2],gpk*.125,1e-4),n=Math.min(1,hits[i2]/den),st=Math.sqrt(Math.min(1,raw[i2]/(rmax+1e-6)));
+      bi[i2].style.height=(8+st*24+n*68*Math.min(1,.55+gpk*40))+'%';
+      if(i2>=r[0]&&i2<=r[1])pulse=Math.max(pulse,n*Math.min(1,gpk*60));
+    }
+    return pulse;
+  }
+  var t0=performance.now(),lastNow=t0;
+  function frame(now){
+    var dt=Math.min(.1,(now-lastNow)/1000);lastNow=now;
+    var p;
+    if(live&&an&&!audio.paused){p=analyse(dt);smooth=p>smooth?p:smooth+(p-smooth)*Math.min(1,dt*9);p=smooth}
+    else{
+      var t=(now-t0)/1000*2,kick=env(t,[0,2],6.5),snare=env(t,[1,3],7),hats=0;
+      for(var h=0;h<8;h++)hats=Math.max(hats,Math.exp(-(((t-(h*.5+.25))%4+4)%4)*14));
+      for(var i=0;i<N;i++){
+        var v=.1+.05*Math.sin(t*3+i);
+        if(i<=7)v+=kick*(1-i/10);
+        if(i>=8&&i<=15)v+=snare*(.9-Math.abs(i-12)/9);
+        if(i>=16)v+=hats*(.5+(i-16)/14);
+        bi[i].style.height=Math.min(100,v*100)+'%';
+      }
+      var lev={kick:kick,snare:snare,hats:hats*.9};
+      p=sel==='all'?Math.max(kick,snare,hats):lev[sel];
+    }
+    pic.style.setProperty('--p',p.toFixed(3));
+    if(!reduce||live)requestAnimationFrame(frame);
+  }
+  if(reduce){bi.forEach(function(b,i){b.style.height=(18+((i*37)%50))+'%'});pic.style.setProperty('--p','.4');document.querySelectorAll('#beats button').forEach(function(x){x.addEventListener('click',function(){requestAnimationFrame(frame)})})}
+  else requestAnimationFrame(frame);
+
+  /* the camera window: drag and resize */
+  var desk=document.getElementById('desk'),cam=document.getElementById('cam'),grip=document.getElementById('grip'),hint=document.getElementById('hint');
+  var mode=null,sx=0,sy=0,r0=null;
+  function pct(){return desk.getBoundingClientRect()}
+  function down(m,e){mode=m;sx=e.clientX;sy=e.clientY;r0={l:cam.offsetLeft,t:cam.offsetTop,w:cam.offsetWidth,h:cam.offsetHeight};hint.style.opacity=0;e.preventDefault();e.stopPropagation();(m==='move'?cam:grip).setPointerCapture(e.pointerId)}
+  function move(e){
+    if(!mode)return;var dx=e.clientX-sx,dy=e.clientY-sy,D=pct();
+    if(mode==='move'){
+      var l=Math.max(-r0.w+40,Math.min(D.width-40,r0.l+dx)),t=Math.max(-r0.h+40,Math.min(D.height-40,r0.t+dy));
+      cam.style.left=l/D.width*100+'%';cam.style.top=t/D.height*100+'%';
+    } else {
+      var w=Math.max(70,r0.w+dx),h=w*r0.h/r0.w;
+      cam.style.width=w/D.width*100+'%';cam.style.height=h/D.height*100+'%';
+    }
+  }
+  function up(){mode=null}
+  cam.addEventListener('pointerdown',function(e){if(e.target.closest('#grip'))return;down('move',e)});
+  grip.addEventListener('pointerdown',function(e){down('size',e)});
+  [cam,grip].forEach(function(el){el.addEventListener('pointermove',move);el.addEventListener('pointerup',up);el.addEventListener('pointercancel',up)});
+
+  /* recording shapes */
+  var shapes=[['16:9',16/9],['9:16',9/16],['1:1',1],['4:3',4/3],['4:5',4/5]],sb=document.getElementById('sbox'),fr=document.getElementById('frame'),fl=document.getElementById('flab'),sh=document.getElementById('shapes'),cur=1;
+  shapes.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.textContent=s[0];b.setAttribute('aria-pressed',i===cur);b.addEventListener('click',function(){cur=i;place();sh.querySelectorAll('button').forEach(function(x,j){x.setAttribute('aria-pressed',j===i)})});sh.appendChild(b)});
+  function place(){
+    var W=sb.clientWidth*.86,H=sb.clientHeight*.86,r=shapes[cur][1],w=W,h=w/r;
+    if(h>H){h=H;w=h*r}
+    fr.style.width=w+'px';fr.style.height=h+'px';fl.textContent=shapes[cur][0];
+  }
+  place();addEventListener('resize',place);
+
+  /* trimmer: handles slide in to the auto-placed spot */
+  var wf=document.getElementById('wf'),tl=document.getElementById('tl'),M=70,quietL=.2,quietR=.14;
+  for(var i=0;i<M;i++){var x=i/M,a;if(x<quietL||x>1-quietR)a=.04+.03*Math.random();else a=.25+.7*Math.abs(Math.sin(i*.55))*(.55+.45*Math.random());var w=document.createElement('i');w.style.height=Math.max(5,a*100)+'%';wf.appendChild(w)}
+  var played=false;
+  function runTrim(){
+    if(played)return;played=true;
+    var el=document.getElementById('el'),er=document.getElementById('er'),cl=document.getElementById('cl'),cr=document.getElementById('cr'),kt=document.getElementById('kt'),W=tl.clientWidth;
+    wf.querySelectorAll('i').forEach(function(w,i){var x=i/M;if(x>=quietL&&x<=1-quietR)w.style.background='#f2a516'});
+    el.style.left=(W*quietL-12)+'px';er.style.left=(W*(1-quietR))+'px';
+    cl.style.width=(W*quietL)+'px';cr.style.width=(W*quietR)+'px';
+    var total=31,keep=total*(1-quietL-quietR),start=performance.now();
+    (function tick(n){var f=Math.min(1,(n-start)/1400),v=total-(total-keep)*f;kt.innerHTML='Keeping <b>'+v.toFixed(1)+' s</b> of '+total.toFixed(1)+' s';if(f<1)requestAnimationFrame(tick)})(start);
+  }
+  if('IntersectionObserver' in window){new IntersectionObserver(function(es,o){if(es[0].isIntersecting){setTimeout(runTrim,500);o.disconnect()}},{threshold:.5}).observe(document.getElementById('trim'))}
+  else runTrim();
+})();
+</script>
+</body>
+</html>
