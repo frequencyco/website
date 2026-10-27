@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CamFX by Frequency &amp; Co.</title>
-<meta name="description" content="CamFX turns your webcam into a live visual that moves with your music. A Mac app plus AU and VST3 plugins, verified in FL Studio and Logic Pro.">
+<meta name="description" content="CamFX turns your webcam into a live visual that moves with your music. A Mac app plus AU and VST3 plugins. Every layer listens to its own band, from your DAW, your system audio or a microphone. Verified in FL Studio and Logic Pro.">
 <meta name="theme-color" content="#0b0c10">
 <style>
 :root{
@@ -159,6 +159,21 @@ footer p{margin:0 0 6px}
   .rv{opacity:1;transform:none;transition:none}
   .cam .rec{animation:none}
 }
+
+/* bands per layer */
+.lanes{background:#0f1116;border-radius:20px;padding:22px 22px 16px;color:#f4f1ea;box-shadow:0 40px 80px -34px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.07) inset}
+.lane{display:flex;align-items:center;gap:12px;margin:0 0 10px}
+.lane em{font-style:normal;font-size:13px;color:#9b9fa8;width:88px;flex:none}
+.track{position:relative;flex:1;height:28px;border-radius:9px;background:rgba(255,255,255,.06);overflow:hidden}
+.track i{position:absolute;top:0;bottom:0;border-radius:9px;background:var(--c);opacity:.9;animation:bandpulse 2.4s ease-in-out infinite;animation-delay:var(--d,0s)}
+.track i.all{left:0;width:100%;opacity:.28;animation:none}
+.track b{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:#14110a;mix-blend-mode:normal;white-space:nowrap}
+.track.on-all b{color:#f4f1ea}
+.axis{position:relative;height:16px;margin:6px 0 0 100px;font-size:12px;color:#7b8089}
+.axis span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap}
+@keyframes bandpulse{0%,100%{opacity:.55}12%{opacity:1}}
+@media(max-width:520px){.axis span:nth-child(3){display:none}.lane em{width:64px}.axis{margin-left:76px}}
+@media(prefers-reduced-motion:reduce){.track i{animation:none}}
 </style>
 </head>
 <body>
@@ -171,7 +186,7 @@ footer p{margin:0 0 6px}
 <header class="hero" id="top"><div class="wrap">
   <p class="eyebrow rv">CamFX for Mac</p>
   <h1 class="rv d1">A camera that<br><span class="grad">moves with your music.</span></h1>
-  <p class="lead rv d2">CamFX turns your webcam into a live visual that reacts to the sound you're making. Put the plugin on a channel in your session, choose what it listens to, and record the result.</p>
+  <p class="lead rv d2">CamFX turns your webcam into a live visual that reacts to the sound you're making. Put the plugin on a channel in your session, or let the app listen to your system audio or microphone. Choose what each layer listens to, and record the result.</p>
   <div class="cta rv d3"><a class="btn" href="mailto:jovaval@frequencycoapp.com?subject=CamFX%20early%20access">Ask for early access</a><a class="ghost" href="#hears">See how it reacts &rsaquo;</a></div>
   <p class="small rv d3" style="margin-top:14px">macOS 11 or later. Apple silicon and Intel.</p>
 
@@ -207,12 +222,46 @@ footer p{margin:0 0 6px}
 <section id="hears"><div class="wrap center">
   <p class="eyebrow rv">Reacts to what you choose</p>
   <h2 class="rv d1">Hear the kick.<br>Ignore the rest.</h2>
-  <p class="lead rv d2">The plugin listens to the channel you put it on: the master bus for the whole mix, or a single track for just that sound. Pick the part of the spectrum that matters and the picture answers it, hit for hit. Try the buttons in the preview above: the same beat, a different reaction.</p>
+  <p class="lead rv d2">The plugin listens to the channel you put it on: the master bus for the whole mix, or a single track for just that sound. Pick the part of the spectrum that matters and the picture answers it, hit for hit. Try the buttons in the preview above: the same beat, a different reaction. And every filter layer can listen to its own part.</p>
   <div class="tiles">
-    <div class="tile rv"><div class="ic"></div><h3>Layered looks</h3><p>Stack up to five filters, set how strongly each one reacts, and save the combination as a preset.</p></div>
+    <div class="tile rv"><div class="ic"></div><h3>Layered looks</h3><p>Stack up to five filters, give each its own amount and its own band of the spectrum, and save the combination as a preset.</p></div>
     <div class="tile rv d1"><div class="ic"></div><h3>Made for the mix</h3><p>The plugin only listens, to whichever channel you put it on. It never changes a sample, so it can sit on your master bus and stay out of the way.</p></div>
     <div class="tile rv d2"><div class="ic"></div><h3>Your iPhone as the camera</h3><p>CamFX lists Continuity Camera, so your iPhone's camera is one pick away from the camera menu. Use it on macOS Sonoma or later with an iPhone that supports Continuity Camera.</p></div>
     <div class="tile rv d3"><div class="ic"></div><h3>Smooth and fast</h3><p>A direct camera pipeline that keeps up with the beat instead of lagging behind it.</p></div>
+  </div>
+</div></section>
+
+<section class="alt" id="layers"><div class="wrap split">
+  <div>
+    <p class="eyebrow rv">A band for every layer</p>
+    <h2 class="rv d1">Bass on one. Hats on another.</h2>
+    <p class="lead rv d2">Each filter layer listens to its own range of frequencies, drawn in its own colour on the meter. Hit the kick and one layer snaps; the hi-hat moves another. All at once, all from the same track.</p>
+    <ul class="points rv d3">
+      <li><b>Pick a band.</b> Bass, Kick punch, Snare, Vocals, Hats or the whole mix, or drag the edges to make your own.</li>
+      <li><b>Follow all.</b> One switch makes a layer react to a hit anywhere in the sound, and remembers its band for when you switch it off.</li>
+      <li><b>In every window.</b> In FL Studio the bands sit under the picture. In Logic's small plugin window, five numbered tabs pick the layer.</li>
+    </ul>
+  </div>
+  <div class="rv d1">
+    <div class="lanes" role="img" aria-label="Five layers, each listening to a different range of frequencies">
+      <div class="lane"><em>Layer 1</em><div class="track"><i style="--c:#f2b134;left:9.3%;width:25.4%;--d:0s"></i><b style="left:calc(9.3% + 10px)">Bass</b></div></div>
+      <div class="lane"><em>Layer 2</em><div class="track"><i style="--c:#5ec4b9;left:36.7%;width:38.4%;--d:.5s"></i><b style="left:calc(36.7% + 10px)">Snare</b></div></div>
+      <div class="lane"><em>Layer 3</em><div class="track"><i style="--c:#ef6f6c;left:45.2%;width:40.5%;--d:1s"></i><b style="left:calc(45.2% + 10px)">Vocals</b></div></div>
+      <div class="lane"><em>Layer 4</em><div class="track"><i style="--c:#a78bfa;left:92.1%;width:7.9%;--d:1.5s"></i><b style="left:auto;right:calc(8% + 10px);color:#f4f1ea">Hats</b></div></div>
+      <div class="lane"><em>Layer 5</em><div class="track on-all"><i class="all" style="--c:#6aa7ff"></i><b>Follow all</b></div></div>
+      <div class="axis"><span style="left:0;transform:none">20 Hz</span><span style="left:38.4%">200</span><span style="left:76.9%">2 kHz</span><span style="left:100%;transform:translateX(-100%)">8 kHz</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="sources"><div class="wrap">
+  <p class="eyebrow rv">Listen to anything</p>
+  <h2 class="rv d1">Your DAW, your Mac, your voice.</h2>
+  <p class="lead rv d2">The plugin follows the channel it sits on. In the CamFX app, one menu switches the picture to everything your Mac is playing, or to a microphone, so it works with software that has no plugin too.</p>
+  <div class="fmt">
+    <div class="card rv"><h3>The plugin</h3><p>Put it on a track or the master bus in your session. It only listens and never changes a sample.</p></div>
+    <div class="card rv d1"><h3>System audio</h3><p>Everything your Mac plays: Spotify, DJ software, a browser, a DAW with no plugin. Set the five bands right in the app.</p></div>
+    <div class="card rv d2"><h3>A microphone</h3><p>The built-in mic, an audio interface, or your iPhone over Continuity. Voice-overs land in your recordings, mixed with your screen's sound.</p></div>
   </div>
 </div></section>
 
@@ -249,7 +298,7 @@ footer p{margin:0 0 6px}
   <div>
     <p class="eyebrow rv">Record anything</p>
     <h2 class="rv d1">Your screen, framed for wherever it's going.</h2>
-    <p class="lead rv d2">Record the camera, the whole screen, a single window, or an area in the shape you need. One click to start. In the app, screen takes can include your Mac's system sound. Recorded from the plugin, a take carries the sound of the channel the plugin is on.</p>
+    <p class="lead rv d2">Record the camera, the whole screen, a single window, or an area in the shape you need. One click to start. In the app, screen takes can include your Mac's system sound and your microphone for a voice-over. Recorded from the plugin, a take carries the sound of the channel the plugin is on.</p>
     <div class="shapes rv d3" id="shapes" role="group" aria-label="Recording shape"></div>
   </div>
 </div></section>
@@ -275,7 +324,7 @@ footer p{margin:0 0 6px}
   <p class="lead rv d2">CamFX installs as an Audio Unit and a VST3 plugin, together with the CamFX app, in one installer. How the picture shows up depends on whether your music software lets a plugin use the camera.</p>
   <div class="fmt">
     <div class="card rv"><h3>FL Studio</h3><p>The whole picture and its controls live in the plugin window. Resize it and it opens at that size next time.</p></div>
-    <div class="card rv d1"><h3>Logic Pro</h3><p>Logic doesn't let a plugin open a camera, so the plugin measures the channel and the CamFX app shows the picture next to your session.</p></div>
+    <div class="card rv d1"><h3>Logic Pro</h3><p>Logic doesn't let a plugin open a camera, so the plugin measures the channel (pick each layer's band on its five numbered tabs) and the CamFX app shows the picture next to your session.</p></div>
     <div class="card rv d2"><h3>Everything else</h3><p>If your host lets plugins use the camera, the picture appears in the plugin. If not, you use it like Logic, with the app beside it.</p></div>
   </div>
   <p class="small rv" style="margin-top:26px">Verified in FL Studio and Logic Pro. Other hosts that load these formats, such as Ableton Live, Reaper, Studio One, Cubase and Bitwig Studio, should work the same way, but we haven't tested them ourselves yet. Pro Tools uses AAX, which isn't supported yet.</p>
@@ -284,8 +333,8 @@ footer p{margin:0 0 6px}
 <section class="alt" id="privacy"><div class="wrap center">
   <p class="eyebrow rv">Privacy</p>
   <h2 class="rv d1">It stays on your Mac.</h2>
-  <p class="lead rv d2">Your camera picture, your screen and your audio are processed on your computer and aren't sent to us or anyone else. We don't collect usage data. Recordings are saved only where you choose, and a take you cancel is deleted.</p>
-  <p class="small rv d3" style="margin-top:14px">Camera and screen recording use the permissions macOS asks you for, and you can turn them off any time in System Settings.</p>
+  <p class="lead rv d2">Your camera picture, your screen, your system audio and your microphone are processed on your computer and aren't sent to us or anyone else. We don't collect usage data. Recordings are saved only where you choose, and a take you cancel is deleted.</p>
+  <p class="small rv d3" style="margin-top:14px">Camera, screen recording and microphone use the permissions macOS asks you for, and only when you choose them. You can turn them off any time in System Settings.</p>
 </div></section>
 
 <section id="contact"><div class="wrap center">
