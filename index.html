@@ -188,7 +188,7 @@ footer p{margin:0 0 6px}
   <h1 class="rv d1">A camera that<br><span class="grad">moves with your music.</span></h1>
   <p class="lead rv d2">CamFX turns your webcam into a live visual that reacts to the sound you're making. Put the plugin on a channel in your session, or let the app listen to your system audio or microphone. Choose what each layer listens to, and record the result.</p>
   <div class="cta rv d3"><a class="btn" href="mailto:jovaval@frequencycoapp.com?subject=CamFX%20early%20access">Ask for early access</a><a class="ghost" href="#hears">See how it reacts &rsaquo;</a></div>
-  <p class="small rv d3" style="margin-top:14px">macOS 11 or later. Apple silicon and Intel.</p>
+  <p class="small rv d3" style="margin-top:14px">macOS 11 or later. Apple silicon and Intel. Signed and notarized by Apple.</p>
 
   <div class="stagewrap rv">
     <div class="stage" id="stage">
@@ -222,7 +222,7 @@ footer p{margin:0 0 6px}
 <section id="hears"><div class="wrap center">
   <p class="eyebrow rv">Reacts to what you choose</p>
   <h2 class="rv d1">Hear the kick.<br>Ignore the rest.</h2>
-  <p class="lead rv d2">The plugin listens to the channel you put it on: the master bus for the whole mix, or a single track for just that sound. Pick the part of the spectrum that matters and the picture answers it, hit for hit. Try the buttons in the preview above: the same beat, a different reaction. And every filter layer can listen to its own part.</p>
+  <p class="lead rv d2">The plugin listens to the channel you put it on: the master bus for the whole mix, or a single track for just that sound. Pick the part of the spectrum that matters, anywhere from 20 Hz to 20 kHz, and the picture answers it, hit for hit. Try the buttons in the preview above: the same beat, a different reaction. And every filter layer can listen to its own part.</p>
   <div class="tiles">
     <div class="tile rv"><div class="ic"></div><h3>Layered looks</h3><p>Stack up to five filters, give each its own amount and its own band of the spectrum, and save the combination as a preset.</p></div>
     <div class="tile rv d1"><div class="ic"></div><h3>Made for the mix</h3><p>The plugin only listens, to whichever channel you put it on. It never changes a sample, so it can sit on your master bus and stay out of the way.</p></div>
@@ -244,12 +244,12 @@ footer p{margin:0 0 6px}
   </div>
   <div class="rv d1">
     <div class="lanes" role="img" aria-label="Five layers, each listening to a different range of frequencies">
-      <div class="lane"><em>Layer 1</em><div class="track"><i style="--c:#f2b134;left:9.3%;width:25.4%;--d:0s"></i><b style="left:calc(9.3% + 10px)">Bass</b></div></div>
-      <div class="lane"><em>Layer 2</em><div class="track"><i style="--c:#5ec4b9;left:36.7%;width:38.4%;--d:.5s"></i><b style="left:calc(36.7% + 10px)">Snare</b></div></div>
-      <div class="lane"><em>Layer 3</em><div class="track"><i style="--c:#ef6f6c;left:45.2%;width:40.5%;--d:1s"></i><b style="left:calc(45.2% + 10px)">Vocals</b></div></div>
-      <div class="lane"><em>Layer 4</em><div class="track"><i style="--c:#a78bfa;left:92.1%;width:7.9%;--d:1.5s"></i><b style="left:auto;right:calc(8% + 10px);color:#f4f1ea">Hats</b></div></div>
+      <div class="lane"><em>Layer 1</em><div class="track"><i style="--c:#f2b134;left:8.1%;width:22%;--d:0s"></i><b style="left:calc(8.1% + 10px)">Bass</b></div></div>
+      <div class="lane"><em>Layer 2</em><div class="track"><i style="--c:#5ec4b9;left:31.8%;width:33.3%;--d:.5s"></i><b style="left:calc(31.8% + 10px)">Snare</b></div></div>
+      <div class="lane"><em>Layer 3</em><div class="track"><i style="--c:#ef6f6c;left:39.2%;width:35.1%;--d:1s"></i><b style="left:calc(39.2% + 10px)">Vocals</b></div></div>
+      <div class="lane"><em>Layer 4</em><div class="track"><i style="--c:#a78bfa;left:82.6%;width:14.2%;--d:1.5s"></i><b style="left:calc(82.6% + 8px)">Hats</b></div></div>
       <div class="lane"><em>Layer 5</em><div class="track on-all"><i class="all" style="--c:#6aa7ff"></i><b>Follow all</b></div></div>
-      <div class="axis"><span style="left:0;transform:none">20 Hz</span><span style="left:38.4%">200</span><span style="left:76.9%">2 kHz</span><span style="left:100%;transform:translateX(-100%)">8 kHz</span></div>
+      <div class="axis"><span style="left:0;transform:none">20 Hz</span><span style="left:33.3%">200</span><span style="left:66.7%">2 kHz</span><span style="left:100%;transform:translateX(-100%)">20 kHz</span></div>
     </div>
   </div>
 </div></section>
@@ -334,7 +334,7 @@ footer p{margin:0 0 6px}
   <p class="eyebrow rv">Privacy</p>
   <h2 class="rv d1">It stays on your Mac.</h2>
   <p class="lead rv d2">Your camera picture, your screen, your system audio and your microphone are processed on your computer and aren't sent to us or anyone else. We don't collect usage data. Recordings are saved only where you choose, and a take you cancel is deleted.</p>
-  <p class="small rv d3" style="margin-top:14px">Camera, screen recording and microphone use the permissions macOS asks you for, and only when you choose them. You can turn them off any time in System Settings.</p>
+  <p class="small rv d3" style="margin-top:14px">Camera, screen recording and microphone use the permissions macOS asks you for, and only when you choose them. CamFX is signed and notarized, so macOS can check it hasn't been altered. You can turn them off any time in System Settings.</p>
 </div></section>
 
 <section id="contact"><div class="wrap center">
@@ -363,7 +363,7 @@ footer p{margin:0 0 6px}
   /* the hero: a made-up beat until someone plays one of the real ones */
   var N=24,bars=document.getElementById('bars'),pic=document.getElementById('pic'),bi=[];
   for(var i=0;i<N;i++){var b=document.createElement('i');bars.appendChild(b);bi.push(b)}
-  var ranges={kick:[0,5],snare:[9,14],hats:[17,23],all:[0,23]},sel='kick';
+  var ranges={kick:[2,7],snare:[8,15],hats:[20,23],all:[0,23]},sel='kick';
   function setSel(k){sel=k;document.querySelectorAll('#chips button').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.k===k)});lit()}
   function lit(){var r=ranges[sel];bi.forEach(function(b,i){b.classList.toggle('lit',i>=r[0]&&i<=r[1])})}
   document.querySelectorAll('#chips button').forEach(function(x){x.addEventListener('click',function(){setSel(x.dataset.k)})});
@@ -372,7 +372,7 @@ footer p{margin:0 0 6px}
 
   /* real audio: split it into the same 24 bands and find the hits like the plugin does */
   var audio=null,ctx=null,an=null,spec=null,live=false,playBtn=null,avg=new Float32Array(N),bpk=new Float32Array(N),gpk=0,rmax=0,smooth=0,hits=new Float32Array(N);
-  var edges=[];for(var e=0;e<=N;e++)edges.push(20*Math.pow(400,e/N));
+  var edges=[];for(var e=0;e<=N;e++)edges.push(20*Math.pow(1000,e/N));
   function ensureAudio(){
     if(audio)return true;
     try{
